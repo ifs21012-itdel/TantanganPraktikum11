@@ -1,28 +1,21 @@
 package com.ifs21012.lostandfound.presentation.profile
 
 import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.ifs21012.lostandfound.R
 import com.ifs21012.lostandfound.data.remote.MyResult
 import com.ifs21012.lostandfound.data.remote.response.DataUserResponse
 import com.ifs21012.lostandfound.databinding.ActivityProfileBinding
-import com.ifs21012.lostandfound.helper.getImageUri
 import com.ifs21012.lostandfound.presentation.ViewModelFactory
 import com.ifs21012.lostandfound.presentation.login.LoginActivity
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
-    private var currentImageUri: Uri? = null
     private val viewModel by viewModels<ProfileViewModel> {
         ViewModelFactory.getInstance(this)
     }
@@ -45,6 +38,9 @@ class ProfileActivity : AppCompatActivity() {
         binding.apply {
             ivProfileBack.setOnClickListener {
                 finish()
+            }
+            btnEditProfile.setOnClickListener {
+                startActivity(Intent(this@ProfileActivity, ProfileManageActivity::class.java))
             }
         }
     }
@@ -82,13 +78,15 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun loadProfileData(profile: DataUserResponse){
         binding.apply {
-
             if(profile.user.photo != null){
-                val urlImg = "https://public-api.delcom.org/${profile.user.photo}"
+                ivProfile.visibility = View.VISIBLE
+
                 Glide.with(this@ProfileActivity)
-                    .load(urlImg)
+                    .load("https://public-api.delcom.org/" + profile.user.photo)
                     .placeholder(R.drawable.ic_person)
                     .into(ivProfile)
+            }else{
+                ivProfile.visibility = View.GONE
             }
 
             tvProfileName.text = profile.user.name
@@ -102,59 +100,5 @@ class ProfileActivity : AppCompatActivity() {
             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
-    }
-
-    private fun startGallery() {
-        launcherGallery.launch(
-            PickVisualMediaRequest(
-                ActivityResultContracts.PickVisualMedia.ImageOnly
-            )
-        )
-    }
-
-    private val launcherGallery = registerForActivityResult(
-        ActivityResultContracts.PickVisualMedia()
-    ) { uri: Uri? ->
-        if (uri != null) {
-            currentImageUri = uri
-            showImage()
-        } else {
-            Toast.makeText(
-                applicationContext,
-                "Tidak ada media yang dipilih!",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    private fun showImage() {
-        currentImageUri?.let {
-            binding.ivProfileCover.setImageURI(it)
-        }
-    }
-
-    private fun startCamera() {
-        currentImageUri = getImageUri(this)
-        launcherIntentCamera.launch(currentImageUri)
-    }
-    private val launcherIntentCamera = registerForActivityResult(
-        ActivityResultContracts.TakePicture()
-    ) { isSuccess ->
-        if (isSuccess) {
-            showImage()
-        }
-    }
-
-    private fun manageAddLostFound() {
-        binding.apply {
-
-            btnLostFoundManageCamera.setOnClickListener {
-                startCamera()
-            }
-
-            btnLostFoundManageGallery.setOnClickListener {
-                startGallery()
-            }
-        }
     }
 }

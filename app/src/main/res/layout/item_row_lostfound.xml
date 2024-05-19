@@ -2,17 +2,16 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="10dp"
-    android:layout_marginBottom="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10sp"
-    android:backgroundTint="@color/main">
+    android:layout_margin="10dp"
+    android:layout_marginBottom="15dp"
+    android:backgroundTint="@android:color/holo_purple"
+    app:cardCornerRadius="10sp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         app:layout_constraintCircleRadius="3dp">
 
         <CheckBox
@@ -22,7 +21,6 @@
             android:foregroundGravity="center"
             android:gravity="center"
             android:scaleX="1"
-            android:visibility="gone"
             android:scaleY="1"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +48,6 @@
             android:text="Status Barang"
             android:textColor="#AAAAAA"
             android:textSize="16sp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tvItemLostFoundTitle"
             app:layout_constraintStart_toEndOf="@+id/cbItemLostFoundIsFinished" />

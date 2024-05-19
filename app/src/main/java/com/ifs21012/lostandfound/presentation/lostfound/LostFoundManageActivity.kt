@@ -97,17 +97,8 @@ class LostFoundManageActivity : AppCompatActivity() {
 
                 observePostLostFound(title, description, status)
             }
-
-            btnLostFoundManageCamera.setOnClickListener {
-                startCamera()
-            }
-
-            btnLostFoundManageGallery.setOnClickListener {
-                startGallery()
-            }
         }
     }
-
 
     private fun observePostLostFound(title: String, description: String, status: String) {
         viewModel.postLostFound(title, description, status).observeOnce { result ->

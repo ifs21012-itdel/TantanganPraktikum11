@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == LostFoundManageActivity.RESULT_CODE) {
             recreate()
         }
-
         if (result.resultCode == LostFoundDetailActivity.RESULT_CODE) {
             result.data?.let {
                 val isChanged = it.getBooleanExtra(

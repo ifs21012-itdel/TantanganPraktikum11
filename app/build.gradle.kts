@@ -10,7 +10,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ifs21049.lostandfound"
+        applicationId = "com.ifs21012.lostandfound"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

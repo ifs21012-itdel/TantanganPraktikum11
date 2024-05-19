@@ -19,7 +19,7 @@
             android:id="@+id/appbarMain"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/black"
+            android:background="@android:color/holo_purple"
             app:menu="@menu/main_menu"
             app:title="@string/app_name"
             app:titleTextColor="@color/white" />
